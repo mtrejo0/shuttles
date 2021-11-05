@@ -1,14 +1,13 @@
 from flask import Flask, jsonify
 app = Flask(__name__)
 
-@app.route('/route1/<number>', methods=['GET'])
-def route1(number):
+import requests
+import re
+from bs4 import BeautifulSoup
+import time
+import datetime
 
-    response = {}
-    response["input"] = number
-    response["output"] = number * 32
-    
-    return jsonify(response)
+
 
 
 @app.route('/')

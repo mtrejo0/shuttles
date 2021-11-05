@@ -8,11 +8,9 @@ import time
 import datetime
 import json
 
-url = 'https://mobi.mit.edu/default/transit/route?feed=nextbus&direction=loop&agency=mit&route=boston&_tab=stops'
 
-@app.route('/')
-def index():
-    
+
+def get_times(name, url):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     m = re.findall('\n.*mins', soup.get_text())
@@ -25,8 +23,6 @@ def index():
         s = g.split("Arriving in")
 
         if len(s) < 2: continue
-
-
         name = s[0].strip()
         times = s[1].strip()
 
@@ -44,11 +40,8 @@ def index():
             "mins_away": mins_away, 
             "arrival_time": arrival_time})
 
-    current_time = now.strftime("%H:%M:%S")
-    
-    html = "<h1><a href=\"https://mobi.mit.edu/default/transit/route?feed=nextbus&direction=loop&agency=mit&route=boston&_tab=stops\">Boston Daytime Shuttle</a></h1>"
+    html = "<h1><a target=\"_blank\" href=\""+ url + "\">" + name +"</a></h1>"
     html += "<ul>"
-    print(data)
     for each in data:
         html += "<li>" + each['name'] + "</li>"
         html += "<ul>"
@@ -58,7 +51,24 @@ def index():
             html += "LEAVE FOR STOP NOW!"
         html += "</ul>"
     html += "</ul>"
+    if len(data) == 0 :
+        html += "Its offline :("
 
+    return html
+
+
+url_daytime = 'https://mobi.mit.edu/default/transit/route?feed=nextbus&direction=loop&agency=mit&route=boston&_tab=stops'
+
+url_beast = 'https://mobi.mit.edu/default/transit/route?feed=nextbus&direction=loop&agency=mit&route=saferidebostone'
+
+
+@app.route('/')
+def index():
+    
+    html = ""
+    html += get_times("Boston Daytime Shuttle", url_daytime)
+    html += get_times("Saferide Boston East", url_beast)
+    
     return html
 
 if __name__ == '__main__':

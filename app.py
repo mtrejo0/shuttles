@@ -26,7 +26,10 @@ def get_times(route_name, url):
         name = s[0].strip()
         times = s[1].strip()
 
-        mins_away = int(times.split(",")[0])
+        if len(times.split(",")) < 1 : continue
+        if len(times.split(",")[0].split(" ")) < 1 : continue
+        
+        mins_away = int(times.split(",")[0].split(" ")[0])
 
         time_change = datetime.timedelta(minutes=mins_away)
 

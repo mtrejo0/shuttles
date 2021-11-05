@@ -10,7 +10,7 @@ import json
 
 
 
-def get_times(name, url):
+def get_times(route_name, url):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
     m = re.findall('\n.*mins', soup.get_text())
@@ -40,7 +40,7 @@ def get_times(name, url):
             "mins_away": mins_away, 
             "arrival_time": arrival_time})
 
-    html = "<h1><a target=\"_blank\" href=\""+ url + "\">" + name +"</a></h1>"
+    html = "<h1><a target=\"_blank\" href=\""+ url + "\">" + route_name +"</a></h1>"
     html += "<ul>"
     for each in data:
         html += "<li>" + each['name'] + "</li>"

@@ -5,7 +5,7 @@ import time
 import datetime
 import json
 
-def get_data(id):
+def get_stops_data(id):
 
     url = 'https://mobi.mit.edu/default/transit/route?feed=nextbus&direction=loop&agency=mit&route={}'.format(id)
 

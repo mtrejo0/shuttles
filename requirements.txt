@@ -33,7 +33,7 @@ python-dateutil==2.8.2
 python-dotenv==0.15.0
 python-slugify==5.0.2
 PyYAML==5.4.1
-requests==2.26.0
+requests==2.25.1
 s3transfer==0.4.2
 serverlessrepo==0.1.10
 six==1.16.0

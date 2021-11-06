@@ -19,10 +19,16 @@ def home():
 def route_info():
     
     try:
-        response = {
-            "boston": api.get_data("boston"),
-            "saferidebostone": api.get_data("saferidebostone")
-        }
+        response = [
+            {
+                "name" : "boston",
+                "stops" : api.get_stops_data("boston")
+            },
+            {
+                "name" : "saferidebostone",
+                "stops" : api.get_stops_data("saferidebostone")
+            }
+        ]
 
         return jsonify(response)
 

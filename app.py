@@ -21,11 +21,11 @@ def route_info():
     try:
         response = [
             {
-                "name" : "boston",
+                "name" : "Boston Daytime",
                 "stops" : api.get_stops_data("boston")
             },
             {
-                "name" : "saferidebostone",
+                "name" : "Saferide Boston East",
                 "stops" : api.get_stops_data("saferidebostone")
             }
         ]

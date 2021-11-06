@@ -7,6 +7,9 @@ from bs4 import BeautifulSoup
 import time
 import datetime
 import json
+from flask_cors import CORS
+
+CORS(app)
 
 
 def get_times(route_name, url):

@@ -35,6 +35,29 @@ def route_info():
     except Exception as e:
         print(e)
         return jsonify({"error": 'Failed'}), 400
+
+
+@app.route('/sigma_nu')
+def sigma_nu():
+    
+    try:
+
+        daytime =  api.get_stops_data("boston")
+        stop_stud = None
+        stop_472 = None
+        for each in daytime:
+            if each["name"] == "84 Mass Ave":
+                stop_stud = each
+            if each["name"] == "478 Commonwealth Ave":
+                stop_472 = each
+
+        response = '''Boston Daytime, Student Center: {} min, 472: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+
+        return jsonify(response)
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": 'Failed'}), 400
     
 
 if __name__ == '__main__':

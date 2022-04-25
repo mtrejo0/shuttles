@@ -37,7 +37,7 @@ def route_info():
         return jsonify({"error": 'Failed'}), 400
 
 
-@app.route('/sigma_nu')
+@app.route('/sigma_nu', methods = ['POST', 'GET'])
 def sigma_nu():
     
     try:

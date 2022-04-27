@@ -57,7 +57,7 @@ def sigma_nu():
 
     except Exception as e:
         print(e)
-        return jsonify({"error": 'Failed'}), 400
+        return jsonify({"error": str(e), "message": "Oops"}), 400
     
 
 if __name__ == '__main__':

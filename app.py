@@ -41,13 +41,15 @@ def route_info():
 def sigma_nu():
     
     try:
-
+        
+        response = ""
+        
         daytime =  api.get_stops_data("boston")
         stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
         stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
         
         if daytime:
-            response = '''Boston Daytime, Student Center: {} min, 472: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+            response = '''Boston Daytime, Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
 
         saferidebostone =  api.get_stops_data("saferidebostone")
         stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
@@ -55,10 +57,24 @@ def sigma_nu():
         
         if saferidebostone:
             response += "\n"
-            response = '''BEAST, Student Center: {} min, 472: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+            response = '''BEAST, Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
 
         if not len(response):
-            response = "Oops ... try again later"
+            response += "Oops ... try again later"
+
+        response += "\nHarvard M2:"
+        
+        kenmore = api.get_m2_stop("Kenmore (Outbound)")
+        if kenmore:
+            response+="\n"
+            response+=kenmore
+        
+        mit = api.get_m2_stop("Mass Ave at MIT (Southbound)")
+        if mit:
+            response+="\n"
+            response+=mit
+        
+        
         
         return jsonify(response)
 

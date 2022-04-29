@@ -46,25 +46,31 @@ def get_stops_data(id):
 
 def get_m2_stop(stop):
 
-    url = 'https://harvard.transloc.com/t/routes/4015412'
+    try:
 
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
-    m = re.findall('\n.*mins', soup.get_text())
+        url = 'https://harvard.transloc.com/t/routes/4015412'
+
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, "html.parser")
+        m = re.findall('\n.*mins', soup.get_text())
 
 
-    soup = str(soup)
+        soup = str(soup)
 
-    soup = soup[soup.index(stop):]
+        soup = soup[soup.index(stop):]
 
-    soup = soup[:soup.index("<abbr title=\"minutes\">")]
+        soup = soup[:soup.index("<abbr title=\"minutes\">")]
 
-    t = "<span class=\"time_1\">"
-    times = soup[soup.index(t) + len(t):].split("&amp;")
+        t = "<span class=\"time_1\">"
+        times = soup[soup.index(t) + len(t):].split("&amp;")
 
-    times = ", ".join([each.strip().replace("&lt;", "<") for each in times]) + " mins"
+        times = ", ".join([each.strip().replace("&lt;", "<") for each in times]) + " mins"
 
-    return stop + " "+ times
+        return stop + " " + times
+
+    except Exception as e:
+
+        return stop + " " + e
 
 
 print(get_m2_stop("Mass Ave at MIT (Southbound)"))

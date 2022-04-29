@@ -49,15 +49,14 @@ def sigma_nu():
         stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
         
         if daytime:
-            response = '''Boston Daytime, Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+            response += '''Boston Daytime\n Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
 
         saferidebostone =  api.get_stops_data("saferidebostone")
         stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
         stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
         
         if saferidebostone:
-            response += "\n"
-            response = '''BEAST, Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+            response += '''BEAST\n Student Center: {} min, Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
 
         if not len(response):
             response += "Oops ... try again later"

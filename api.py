@@ -70,7 +70,7 @@ def get_m2_stop(stop):
 
     except Exception as e:
 
-        return stop + " " + e
+        return stop + " " + str(e)
 
 
 print(get_m2_stop("Mass Ave at MIT (Southbound)"))

@@ -78,7 +78,7 @@ def get_m2_stop(stop):
 
         times = ", ".join([each.strip().replace("&lt;", "<") for each in times]) + " mins"
 
-        return stop + " " + times
+        return stop + ": " + times
 
     except Exception as e:
         print(e)

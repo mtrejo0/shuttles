@@ -53,7 +53,7 @@ def sigma_nu():
         stop2 = api.get_stops_data("boston", "478 Commonwealth Ave") + "\n"
 
         if not "Not Available" in stop1 and not "Not Available" in stop2:
-            response += "Boston Daytime:\n"
+            response += "Boston Daytime\n\n"
             response += stop1
             response += stop2
 
@@ -61,12 +61,12 @@ def sigma_nu():
         stop2 = api.get_stops_data("saferidebostone", "478 Commonwealth Ave") + "\n"
 
         if not "Not Available" in stop1 and not "Not Available" in stop2:
-            response += "Boston East:\n"
+            response += "Boston East\n\n"
             response += stop1
             response += stop2
 
 
-        response += "Harvard M2:\n"
+        response += "Harvard M2\n\n"
         
         kenmore = api.get_m2_stop("Kenmore (Outbound)")
         response+=kenmore + "\n"

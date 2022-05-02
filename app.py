@@ -44,36 +44,35 @@ def sigma_nu():
         
         response = ""
         
-        daytime =  api.get_stops_data("boston")
-        stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
-        stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
+        # daytime =  api.get_stops_data("boston", "84 Mass Ave")
+        # api.get_stops_data("boston", "478 Commonwealth Ave")
+        # stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
+        # stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
         
-        if daytime:
-            response += '''Boston Daytime\n Student Center: {} min\n Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+        stop1 = api.get_stops_data("boston", "84 Mass Ave") + "\n"
+        stop2 = api.get_stops_data("boston", "478 Commonwealth Ave") + "\n"
 
-        saferidebostone =  api.get_stops_data("saferidebostone")
-        stop_stud = [each for each in daytime if each["name"] == "84 Mass Ave"][0]
-        stop_472 = [each for each in daytime if each["name"] == "478 Commonwealth Ave"][0]
-        
-        if saferidebostone:
-            response += '''BEAST\n Student Center: {} min\n Four Seventy Two: {} min'''.format(stop_stud["mins_away"], stop_472["mins_away"])
+        if not "Not Available" in stop1 and not "Not Available" in stop2:
+            response += "Boston Daytime\n"
+            response += stop1
+            response += stop2
 
-        if not len(response):
-            response += "Oops ... try again later"
+        stop1 = api.get_stops_data("saferidebostone", "84 Mass Ave") + "\n"
+        stop2 = api.get_stops_data("saferidebostone", "478 Commonwealth Ave") + "\n"
 
-        response += "\nHarvard M2:"
+        if not "Not Available" in stop1 and not "Not Available" in stop2:
+            response += "Boston East\n"
+            response += stop1
+            response += stop2
+
+
+        response += "Harvard M2:\n"
         
         kenmore = api.get_m2_stop("Kenmore (Outbound)")
-        if kenmore:
-            response+="\n"
-            response+=kenmore
+        response+=kenmore + "\n"
         
         mit = api.get_m2_stop("Mass Ave at MIT (Southbound)")
-        if mit:
-            response+="\n"
-            response+=mit
-        
-        
+        response+=mit + "\n"
         
         return jsonify(response)
 
